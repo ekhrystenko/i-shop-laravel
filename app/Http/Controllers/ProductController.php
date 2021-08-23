@@ -8,6 +8,7 @@ use App\Models\Product;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class ProductController extends Controller
 {
@@ -36,6 +37,7 @@ class ProductController extends Controller
 
         $products = $productsQuery->orderBy('new', 'DESC')->paginate(4)->
                     withPath("?" . $request->getQueryString());
+
         return view('all-products', compact('products'));
     }
 

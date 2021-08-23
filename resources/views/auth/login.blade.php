@@ -14,9 +14,10 @@
                 @csrf
                 <div class="form-group">
                     <h3>Sign In</h3>
-                    <label for="email">Name</label>
+                    <label for="name">Name</label>
                     <div class="input-group-prepend">
-                    <input type="text" name="name" placeholder="Name" id="name" class="form-control"
+                    <input type="text" name="name" placeholder="Name" id="name"
+                           class="form-control @error('name') is-invalid @enderror"
                            value="{{ old('name') }}">
                     </div>
 
@@ -24,8 +25,16 @@
                 <div class="form-group">
                     <label for="password">Password</label>
                     <input type="password" name="password" placeholder="Password" id="password-in"
-                           class="form-control" value="">
+                           class="form-control @error('password') is-invalid @enderror" value="">
                 </div>
+
+                <div class="form-group">
+                    <input class="new-checkbox mr-1" type="checkbox" name="remember" id="remember">
+                    <label class="form-check-label" for="remember">
+                        Remember Me
+                    </label>
+                </div>
+
 
                 <label for="show-in" class="label-show">
                     <input type="checkbox" class="password-checkbox-in" id="show-in">

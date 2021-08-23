@@ -14,6 +14,7 @@ use App\Http\Controllers\Admin\OrderController;
 
 Auth::routes();
 
+
 Route::middleware(['auth', 'is_admin'])->group(function (){
     Route::prefix('admin')->group(function (){
         Route::get('/orders', [OrderController::class, 'execute'])->name('orders');
@@ -43,3 +44,5 @@ Route::get('/all-products', [ProductController::class, 'allProducts'])->name('al
 Route::get('/{category}', [CategoryController::class, 'execute'])->name('category');
 Route::post('/{product}/comment', [ProductController::class, 'saveComment'])->name('saveComment');
 Route::get('/{category}/{product}', [ProductController::class, 'execute'])->name('product');
+
+

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\FeedBackFormRequest;
+use App\Jobs\FeedBackMessageJob;
 use App\Mail\FeedbackMailController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
@@ -37,6 +38,7 @@ class FeedbackController extends Controller
         fopen('https://api.telegram.org/'.$token.'/sendMessage?chat_id='.$chat_id.'&parse_mode=html&text='.rawurlencode($txt), 'r');
 
 //        Mail::to('e.khrystenko1991@gmail.com')->send(new FeedbackMailController($name, $email, $phone, $msg));
+        FeedBackMessageJob::dispatch($name, $email, $phone, $msg);
 
         return redirect()->back()->with(['success' => 'Message sent, thank you!']);
     }
