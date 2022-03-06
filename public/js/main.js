@@ -60,6 +60,7 @@ $(document).ready(function () {
         $('html, body').animate({scrollTop: 0}, 700);
     });
 
+    // Подтвердить удаление
     $('.btn-danger').click(function () {
         return confirm('Confirm your action');
     });
