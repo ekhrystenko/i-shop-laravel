@@ -2,15 +2,24 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
+use Illuminate\Contracts\Foundation\Application;
 use App\Models\Order;
 
-class OrderController extends Controller
+class OrderController extends AbstractAdminController
 {
-    public function execute()
+    /**
+     * @return Application|mixed
+     */
+    public function getClassName()
     {
-        $orders = Order::active()->paginate(4);
-        return view('auth.admin.adminOrders', compact('orders'));
+        return app(Order::class);
+    }
+
+    /**
+     * @return string
+     */
+    public function getModelName(): string
+    {
+        return 'order';
     }
 }

@@ -6,7 +6,7 @@
 <div class="container">
     <div class="row">
         <div class="col-8 form-contact">
-            <form action="{{ route('admin.store') }}" method="POST" enctype="multipart/form-data">
+            <form action="{{ route('product.store') }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 <div class="form-group">
                     <h3>Add New Product</h3>
@@ -62,13 +62,18 @@
                 </div>
 
                 <div class="form-check new-checkbox">
-                    <input type="checkbox" name="new" class="form-check-input">
-                    <label for="New" class="form-check-label">New</label>
+                    <input type="checkbox" name="active" id="active" class="form-check-input">
+                    <label for="active" class="form-check-label">Active</label>
+                </div>
+
+                <div class="form-check new-checkbox">
+                    <input type="checkbox" name="new" id="new" class="form-check-input">
+                    <label for="new" class="form-check-label">New</label>
                 </div>
 
                 <button type="submit" class="btn btn-success btn-block">Add</button>
             </form>
-            <a href="{{ route('admin.index') }}" class="btn btn-secondary btn-block mt-2">Back</a>
+            <a href="{{ route('product.index') }}" class="btn btn-secondary btn-block mt-2">Back</a>
         </div>
     </div>
 </div>

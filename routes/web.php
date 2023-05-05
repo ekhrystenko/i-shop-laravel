@@ -1,6 +1,7 @@
 <?php
 
-use App\Http\Controllers\Admin\AdminCrudController;
+use App\Http\Controllers\Admin\CategoryCrudController;
+use App\Http\Controllers\Admin\ProductCrudController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\IndexController;
@@ -14,13 +15,20 @@ use App\Http\Controllers\Admin\OrderController;
 
 Auth::routes();
 
-
 Route::middleware(['auth', 'is_admin'])->group(function (){
     Route::prefix('admin')->group(function (){
-        Route::get('/orders', [OrderController::class, 'execute'])->name('orders');
-        Route::post('/destroy/{image_id}', [AdminCrudController::class, 'imageDestroy'])->name('imageDestroy');
+        Route::get('/', function (){return view('auth.admin.index');})->name('admin.index');
+        Route::get('/orders', [OrderController::class, 'index'])->name('orders');
+        Route::post('/destroy/{image_id}', [ProductCrudController::class, 'imageDestroy'])->name('imageDestroy');
+
+        Route::resource('product', ProductCrudController::class);
+        Route::get('/product/{id}/activate', [ProductCrudController::class, 'activate'])->name('product.activate');
+        Route::get('/product/{id}/deactivate', [ProductCrudController::class, 'deactivate'])->name('product.deactivate');
+
+        Route::resource('category', CategoryCrudController::class);
+        Route::get('/category/{id}/activate', [CategoryCrudController::class, 'activate'])->name('category.activate');
+        Route::get('/category/{id}/deactivate', [CategoryCrudController::class, 'deactivate'])->name('category.deactivate');
     });
-    Route::resource('admin', AdminCrudController::class);
 });
 
 Route::prefix('cart')->group(function() {

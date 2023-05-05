@@ -11,7 +11,7 @@ class CategoryController extends Controller
     public function execute(Request $request, $category_alias)
     {
         $current_category = Category::where('alias', $category_alias)->first();
-        $products = Product::where('category_id', $current_category->id)->paginate(4);
+        $products = Product::where('category_id', $current_category->id)->where('active', true)->paginate(4);
 
         return view('category', compact('current_category','products'));
     }

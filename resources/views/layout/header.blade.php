@@ -34,11 +34,17 @@
     <div class="col-lg-12">
         <div class="cat__menu">
             <ul>
-                <li><a href="{{ route('allProducts') }}"><i class="fa fas fa-list"></i>All Products</a></li>
+                @if(!$products->isEmpty() && !$categories->isEmpty())
+                    <li><a href="{{ route('allProducts') }}"><i class="fa fas fa-list"></i>All Products</a></li>
+                @endif
                 @foreach($categories as $category)
-                    <li><a href="{{ route('category', $category->alias) }}"><i class="{{$category->class}}"
-                                                                               aria-hidden="true"></i>{{ $category->title }}
-                        </a></li>
+                    @if(!$category->activeProducts->isEmpty())
+                        <li>
+                            <a href="{{ route('category', $category->alias) }}">
+                                <i class="{{$category->class}}" aria-hidden="true"></i>{{ $category->title }}
+                            </a>
+                        </li>
+                    @endif
                 @endforeach
             </ul>
         </div>

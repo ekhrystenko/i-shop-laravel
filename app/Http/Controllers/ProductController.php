@@ -14,7 +14,7 @@ class ProductController extends Controller
 {
     public function execute($category_alias, $product_alias)
     {
-        $product = Product::where('alias', $product_alias)->first();
+        $product = Product::where('alias', $product_alias)->where('active', true)->first();
         $comments = Comment::where('product_id', $product->id)->paginate(5);
 
         return view('product', compact('product', 'comments'));
@@ -35,7 +35,7 @@ class ProductController extends Controller
         if ($request->filled('search'))
             $productsQuery->where('title', 'LIKE', "%{$request->search}%");
 
-        $products = $productsQuery->orderBy('new', 'DESC')->paginate(4)->
+        $products = $productsQuery->where('active', true)->orderBy('new', 'DESC')->paginate(4)->
                     withPath("?" . $request->getQueryString());
 
         return view('all-products', compact('products'));

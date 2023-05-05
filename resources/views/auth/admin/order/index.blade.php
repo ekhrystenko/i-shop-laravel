@@ -6,6 +6,7 @@
 <div class="row justify-content-center">
     <div class="col-lg-8">
         <div class="admin-product">
+            @if(!$models->isEmpty())
             <table class="table-dark table-responsive">
                 <tr style="border-bottom: 2px solid #fff">
                     <th>Id</th>
@@ -15,7 +16,7 @@
                     <th>Date</th>
                     <th>Price</th>
                 </tr>
-                @foreach($orders as $order)
+                @foreach($models as $order)
                     <tr>
                         <td>{{ $order->id }}</td>
                         <td>{{ $order->name }}</td>
@@ -26,14 +27,19 @@
                     </tr>
                 @endforeach
             </table>
+            @else
+                <p class="navbar-brand" style="color: white">Orders not found</p>
+            @endif
         </div>
     </div>
 </div>
 <div class="row justify-content-center">
     <div class="col-lg-8">
-        <div class="mb-3 pt-2 links">
-            {{ $orders->links() }}
-        </div>
+        @if(!$models->isEmpty())
+            <div class="mb-3 pt-2 links">
+                {{ $models->links() }}
+            </div>
+        @endif
         <a href="{{ route('admin.index') }}" class="btn btn-dark btn-block mt-2">Back</a>
     </div>
 </div>

@@ -1,55 +1,53 @@
 @extends('auth.layout.master')
 
-@section('title', 'Update Product ' . $product->title)
+@section('title', 'Update Product ' . $model->title)
 
 @section('content')
 <div class="container">
     <div class="row">
         <div class="col-8 form-contact">
-            <form action="{{ route('admin.update', $product->alias) }}" method="POST" enctype="multipart/form-data">
+            <form action="{{ route('product.update', $model->alias) }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 @method('PUT')
                 <div class="form-group">
 
-                    <h3>Update Product {{ $product->title }}</h3>
+                    <h3>Update Product {{ $model->title }}</h3>
                     <label for="Title">Title</label>
                     <input type="text" name="title" placeholder="Title" class="form-control"
-                           value="{{ $product->title }}">
+                           value="{{ $model->title }}">
                 </div>
 
                 <div class="form-group">
                     <label for="Description">Description</label>
                     <input type="text" name="description" placeholder="Description" class="form-control"
-                           value="{{ $product->description }}">
+                           value="{{ $model->description }}">
                 </div>
 
                 <div class="form-group">
                     <label for="Price">Price</label>
                     <input type="text" name="price" placeholder="Price" class="form-control"
-                           value="{{ $product->price }}">
+                           value="{{ $model->price }}">
                 </div>
 
                 <div class="form-group">
                     <label for="New Price">New Price</label>
                     <input type="text" name="new_price" placeholder="New Price" class="form-control"
-                           value="{{ $product->new_price }}">
+                           value="{{ $model->new_price }}">
                 </div>
 
                 <div class="form-group">
                     <label for="Alias">Alias</label>
                     <input type="text" name="alias" placeholder="Alias" class="form-control"
-                           value="{{ $product->alias }}">
+                           value="{{ $model->alias }}">
                 </div>
 
                 <div class="form-group">
                     <label for="Categories">Categories</label>
                     <p>
                         <select class="form-control" name="categories">
-                            <option value="{{ $product->category->id }}"
-                                @if($product->category_id == $product->category->id)
-                                    selected
-                                @endif
-                            >{{ $product->category->title }}</option>
+                            @foreach($categories as $category)
+                                <option value="{{ $category->id }}" {{ $model->category_id == $category->id ? 'selected' : '' }}>{{ $category->title }}</option>
+                            @endforeach
                         </select>
                     </p>
                 </div>
@@ -57,7 +55,7 @@
                 <div class="form-group">
                     <label for="Full Description">Full Description</label>
                     <textarea name="full_description" cols="30" rows="10" placeholder="Full Description"
-                              class="form-control">{{ $product->full_description }}</textarea>
+                              class="form-control">{{ $model->full_description }}</textarea>
                 </div>
 
                 <div class="form-group-file">
@@ -66,17 +64,18 @@
                 </div>
 
                 <div class="form-check new-checkbox">
-                    <input type="checkbox" name="new" class="form-check-input"
-                        @if ($product->new == 1)
-                        checked
-                        @endif
-                    >
-                    <label for="New" class="form-check-label">New</label>
+                    <input type="checkbox" id="active" name="active" class="form-check-input" {{ $model->active ? "checked" : '' }}>
+                    <label for="active" class="form-check-label">Active</label>
+                </div>
+
+                <div class="form-check new-checkbox">
+                    <input type="checkbox" id="new" name="new" class="form-check-input" {{ $model->new ? "checked" : '' }}>
+                    <label for="new" class="form-check-label">New</label>
                 </div>
 
                 <button type="submit" class="btn btn-primary btn-block">Update</button>
             </form>
-            <a href="{{ route('admin.show', $product->alias) }}" class="btn btn-secondary btn-block mt-2">Back</a>
+            <a href="{{ route('product.index') }}" class="btn btn-secondary btn-block mt-2">Back</a>
         </div>
     </div>
 </div>

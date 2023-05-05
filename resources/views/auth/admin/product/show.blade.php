@@ -1,6 +1,6 @@
 @extends('auth.layout.master')
 
-@section('title', $product->title)
+@section('title', $model->title)
 
 @section('header')
     @include('layout.header')
@@ -13,9 +13,9 @@
             <div class="row">
                 <div class="col-lg-6">
                     <div class="slider-product-card">
-                        @foreach($product->images as $image)
+                        @foreach($model->images as $image)
                             <div class="product-img-cart">
-                                <img src="{{ Storage::url($image->img) }}" alt="{{ $product->title }}">
+                                <img src="{{ Storage::url($image->img) }}" alt="{{ $model->title }}">
                                 <form action="{{ route('imageDestroy', $image) }}" method="post">
                                     @csrf
                                     <button class="btn btn-danger mt-2 mb-3 col-lg-4">Delete</button>
@@ -26,30 +26,30 @@
                 </div>
                 <div class="col-lg-6 text-left">
                     <p class="product-card-text">
-                    <h4>{{ $product->title }}</h4>
+                    <h4>{{ $model->title }}</h4>
                     </p>
-                    @if($product->new_price != null)
-                        <span class="product-price" style="color: red">Old: <s>${{ $product->price }}</s></span>
-                        <span class="product-price"> / New: ${{$product->new_price}} </span>
+                    @if($model->new_price != null)
+                        <span class="product-price" style="color: red">Old: <s>${{ $model->price }}</s></span>
+                        <span class="product-price"> / New: ${{$model->new_price}} </span>
                     @else
-                        <span class="product-price">Price: ${{ $product->price }}</span>
+                        <span class="product-price">Price: ${{ $model->price }}</span>
                     @endif
-                    <p class="pt-3 product-card-text">{{ $product->description }}</p>
+                    <p class="pt-3 product-card-text">{{ $model->description }}</p>
                 </div>
             </div>
             <div class="row">
                 <div class="col-lg-12 text-left pt-4">
-                    <p class="product-card-text pl-4">{!! $product->description !!} </p>
+                    <p class="product-card-text pl-4">{!! $model->description !!} </p>
                 </div>
             </div>
             <div class="row">
                 <div class="col-12 pt-4">
-                    <form action="{{ route('admin.destroy', $product->alias) }}" method="POST">
-                        <a href="{{ route('admin.edit', $product->alias) }}" class="btn btn-primary">Update</a>
+                    <form action="{{ route('product.destroy', $model->alias) }}" method="POST">
+                        <a href="{{ route('product.edit', $model->alias) }}" class="btn btn-primary">Update</a>
                         @csrf
                         @method('DELETE')
                             <button class="btn btn-danger">Delete</button>
-                        <a href="{{ route('admin.index') }}" class="btn btn-secondary">Back</a>
+                        <a href="{{ route('product.index') }}" class="btn btn-secondary">Back</a>
                     </form>
                 </div>
             </div>

@@ -9,8 +9,8 @@ class Product extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['description', 'full_description', 'price', 'new_price', 'alias', 'category_id', 'title'];
-    protected $guarded = [];
+    protected $fillable = ['description', 'full_description', 'price', 'new_price', 'alias',
+        'category_id', 'title', 'new', 'active'];
 
     public function images()
     {
@@ -43,5 +43,4 @@ class Product extends Model
     {
         return $query->where('new', 1);
     }
-
 }

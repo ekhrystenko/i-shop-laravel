@@ -29,11 +29,15 @@ class AppServiceProvider extends ServiceProvider
     {
         Paginator::useBootstrap();
 
-        $categories = Category::get();
-        View::share(['categories'=>$categories]);
+        if(\Schema::hasTable('categories')) {
+            $categories = Category::where('active', true)->get();
+            View::share(['categories'=>$categories]);
+        }
 
-        $products = Product::get();
-        View::share(['products'=>$products]);
+        if(\Schema::hasTable('products')){
+            $products = Product::where('active', true)->get();
+            View::share(['products'=>$products]);
+        }
 
     }
 }
